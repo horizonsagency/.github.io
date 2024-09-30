@@ -1,10 +1,11 @@
 const CACHE_NAME = 'pwa-cache-v1';
 const urlsToCache = [
-  '/',
   '/index.html',
-  '/styles.css',
-  '/main.js',
-  '/path/to/icon.png'
+  '/style.css',
+  '/css/your-css-file.css',
+  '/script/your-script.js',
+  '/images/icon-192x192.png',
+  '/images/icon-512x512.png'
 ];
 
 self.addEventListener('install', function(event) {
@@ -21,10 +22,7 @@ self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request)
       .then(function(response) {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request);
+        return response || fetch(event.request);
       })
   );
 });
